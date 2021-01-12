@@ -11,11 +11,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/todoList',
     name: 'todoList',
     component: () =>
-      import(/* webpackChunkName: "about" */ '@/views/todoList/todo.vue')
+      /* webpackChunkName: "todo" */
+      import('@/views/todoList/todo.vue')
   }
 ]
 
 const router = createRouter({
+  // history: createWebHashHistory(process.env.BASE_URL),
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
