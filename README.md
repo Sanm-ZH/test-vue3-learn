@@ -1,5 +1,8 @@
 # test-vue3-demo
 
+## Project description
+vue3 @vue/cli setup typescript
+基于vue3 @vue/cli@4.5 使用typescript vue setup的学习项目
 ## Project setup
 ```
 npm install
