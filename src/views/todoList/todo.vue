@@ -8,10 +8,11 @@
       @keyup.enter="addTodo"
     />
     <Item
-      v-for="todo in filteredTodos?.value"
+      v-for="todo in filteredTodos.value"
       :todo="todo"
       :key="todo.id"
       @del="deleteTodo"
+      @opt="optCompleted"
     />
     <Tabs
       :filter="filter"
@@ -38,7 +39,6 @@ export default defineComponent({
     let id = 0
     const todos = ref([] as Array<TodoItem>)
     const addTodo = (e: any): void => {
-      console.log(e)
       if (!e.target.value.trim()) {
         // 没有输入不添加
         return
@@ -59,6 +59,10 @@ export default defineComponent({
       const activeList = todos.value.filter(todo => !todo.completed)
       todos.value = activeList
     }
+    const optCompleted = (id: number): void => {
+      const activeTodoIndex = todos.value.findIndex(item => item.id === id)
+      todos.value[activeTodoIndex]['completed'] = !todos.value[activeTodoIndex]['completed']
+    }
 
     const filter = ref('all')
     const toggleFilter = (state: string): void => {
@@ -69,13 +73,14 @@ export default defineComponent({
       if (filter.value === 'all') {
         return todos
       }
-      const completed = filter.value === 'completed'
-      return todos.value.filter(todo => completed === todo.completed)
+      const flot = filter.value === 'completed'
+      return ref(todos.value.filter(todo => flot === todo.completed))
     })
 
     return {
       todos,
       addTodo,
+      optCompleted,
       deleteTodo,
       clearAllCompleted,
       filter,

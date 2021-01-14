@@ -4,11 +4,12 @@
       type="checkbox"
       class="toggle"
       :value="todo.completed"
+      @click="optCompletedClick"
     />
-    <label> {{ todo.content }}</label>
+    <label :class="[todo.completed ? 'completed' : '']"> {{ todo.content }}</label>
     <button
       class="destroy"
-      @click="deletetodo"
+      @click="deleteTodo"
     >
     </button>
   </div>
@@ -17,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { TodoItem } from './todoInterface'
+
 export default defineComponent({
   props: {
     todo: {
@@ -25,12 +27,16 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const deletetodo = (): void => {
+    const deleteTodo = (): void => {
       emit('del', props.todo.id)
+    }
+    const optCompletedClick = (): void => {
+      emit('opt', props.todo.id)
     }
 
     return {
-      deletetodo
+      optCompletedClick,
+      deleteTodo
     }
   }
 })
