@@ -18,7 +18,6 @@ module.exports = {
       "jsx": true,
       "modules": true
     },
-    "project": "./tsconfig.json"
   },
   "rules": {
     // 设置 typescript-eslint 规则

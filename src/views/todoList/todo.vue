@@ -11,6 +11,7 @@
       v-for="todo in filteredTodos.value"
       :todo="todo"
       :key="todo.id"
+      :isPc="isPc"
       @del="deleteTodo"
       @opt="optCompleted"
     />
@@ -24,10 +25,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, onMounted } from 'vue'
 import Item from './item.vue'
 import Tabs from './tab.vue'
 import { TodoItem } from './todoInterface'
+import { isPCHandle } from '@/utils/utils'
 
 export default defineComponent({
   name: 'TodoPage',
@@ -37,6 +39,11 @@ export default defineComponent({
   },
   setup() {
     let id = 0
+    const isPc = ref(true)
+    onMounted(() => {
+      isPc.value = isPCHandle()
+    })
+
     const todos = ref([] as Array<TodoItem>)
     const addTodo = (e: any): void => {
       if (!e.target.value.trim()) {
@@ -73,8 +80,8 @@ export default defineComponent({
       if (filter.value === 'all') {
         return todos
       }
-      const flot = filter.value === 'completed'
-      return ref(todos.value.filter(todo => flot === todo.completed))
+      const flag = filter.value === 'completed'
+      return ref(todos.value.filter(todo => flag === todo.completed))
     })
 
     return {
@@ -85,7 +92,8 @@ export default defineComponent({
       clearAllCompleted,
       filter,
       toggleFilter,
-      filteredTodos
+      filteredTodos,
+      isPc
     }
   }
 })

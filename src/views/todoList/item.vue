@@ -1,5 +1,5 @@
 <template>
-  <div :class="['todo-item', todo.completed ? 'completed' : '']">
+  <div :class="['todo-item', todo.completed ? 'completed' : '', isPc ? '': 'notPc']">
     <input
       type="checkbox"
       class="toggle"
@@ -23,6 +23,10 @@ export default defineComponent({
   props: {
     todo: {
       type: Object as PropType<TodoItem>,
+      required: true
+    },
+    isPc: {
+      type: Boolean,
       required: true
     }
   },
@@ -54,6 +58,7 @@ export default defineComponent({
       font-size: 20px;
     }
   }
+
   label {
     white-space: pre-line;
     word-break: break-all;
@@ -114,5 +119,11 @@ export default defineComponent({
   border-width: 0;
   cursor: pointer;
   outline: none;
+}
+.notPc {
+  .destroy:after {
+    content: "x";
+    font-size: 20px;
+  }
 }
 </style>
