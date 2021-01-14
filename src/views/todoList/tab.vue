@@ -11,7 +11,10 @@
         {{ state }}
       </span>
     </span>
-    <span class="clear" @click="clearAllCompleted">Clear completed</span>
+    <span
+      class="clear"
+      @click="clearAllCompleted"
+    >Clear completed</span>
   </div>
 </template>
 
@@ -82,7 +85,7 @@ export default defineComponent({
 .left {
   text-align: left;
   b {
-      color:#42b983;
+    color: #42b983;
   }
 }
 .clear {
@@ -90,11 +93,11 @@ export default defineComponent({
   cursor: pointer;
   border: 1px solid #e3e3e3;
   height: 30px;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-content: center;
   border-radius: 3px;
-  margin-top:10px;
+  margin-top: 10px;
   color: #b9b9b9;
   font-weight: bold;
 }
@@ -113,6 +116,41 @@ export default defineComponent({
       color: #fff;
       font-weight: bold;
     }
+  }
+}
+@media (max-width: 28.125rem) {
+  .helper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .left {
+    width: 6.25rem;
+    padding: 0;
+  }
+  .tabs {
+    padding: 0;
+  }
+  .clear {
+    position: relative;
+    left: calc(100% - 9.7rem);
+  }
+}
+@media (max-width: 18.75rem) {
+  .helper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .left {
+    padding: 0;
+  }
+  .tabs {
+    padding: 0;
+  }
+  .clear {
+    position: relative;
+    left: 0;
   }
 }
 </style>

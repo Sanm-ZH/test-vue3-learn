@@ -10,9 +10,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/todoList',
     name: 'todoList',
+
     component: () =>
-      /* webpackChunkName: "todo" */
-      import('@/views/todoList/todo.vue')
+      import(/* webpackChunkName: "todo" */ '@/views/todoList/todo.vue')
   }
 ]
 

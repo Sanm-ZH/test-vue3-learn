@@ -1,13 +1,21 @@
 <template>
   <div :class="['todo-item', todo.completed ? 'completed' : '']">
-    <input type="checkbox" class="toggle" v-model="todo.completed" />
+    <input
+      type="checkbox"
+      class="toggle"
+      :value="todo.completed"
+    />
     <label> {{ todo.content }}</label>
-    <button class="destroy" @click="deletetodo"></button>
+    <button
+      class="destroy"
+      @click="deletetodo"
+    >
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { TodoItem } from './todoInterface'
 export default defineComponent({
   props: {
@@ -17,12 +25,12 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const deletetodo = ():void => {
-        emit("del", props.todo.id)
+    const deletetodo = (): void => {
+      emit('del', props.todo.id)
     }
 
     return {
-        deletetodo
+      deletetodo
     }
   }
 })
@@ -36,7 +44,7 @@ export default defineComponent({
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   &:hover {
     .destroy:after {
-      content: 'x';
+      content: "x";
       font-size: 20px;
     }
   }
@@ -73,14 +81,14 @@ export default defineComponent({
   appearance: none;
 }
 .toggle:before {
-  content: url('../../assets/round.png');
+  content: url("../../assets/round.png");
   position: absolute;
   left: 12px;
   top: 12px;
   cursor: pointer;
 }
 .toggle:checked:before {
-  content: url('../../assets/done.png');
+  content: url("../../assets/done.png");
   position: absolute;
   left: 12px;
   top: 12px;
