@@ -100,6 +100,12 @@ export default defineComponent({
   margin-top: 10px;
   color: #b9b9b9;
   font-weight: bold;
+  transition-property: text-shadow, box-shadow;
+  transition-duration: 0.5s, 1s;
+  &:hover {
+    text-shadow: 5px 3px 3px;
+    box-shadow: 0 0 10px 2px;
+  }
 }
 .tabs {
   width: 200px;

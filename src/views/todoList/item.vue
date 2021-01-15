@@ -6,7 +6,7 @@
       :value="todo.completed"
       @click="optCompletedClick"
     />
-    <label :class="[todo.completed ? 'completed' : '']"> {{ todo.content }}</label>
+    <label>{{ todo.content }}</label>
     <button
       class="destroy"
       @click="deleteTodo"

@@ -1,26 +1,29 @@
 <template>
-  <div class="todo-app">
-    <input
-      type="text"
-      class="add-input"
-      autofocus="autofocus"
-      placeholder="接下来要做什么？"
-      @keyup.enter="addTodo"
-    />
-    <Item
-      v-for="todo in filteredTodos.value"
-      :todo="todo"
-      :key="todo.id"
-      :isPc="isPc"
-      @del="deleteTodo"
-      @opt="optCompleted"
-    />
-    <Tabs
-      :filter="filter"
-      :todos="todos"
-      @toggle="toggleFilter"
-      @clearAll="clearAllCompleted"
-    />
+  <div>
+    <div class="todo-app">
+      <input
+        type="text"
+        class="add-input"
+        autofocus="autofocus"
+        placeholder="接下来要做什么？"
+        @keyup.enter="addTodo"
+      />
+      <Item
+        v-for="todo in filteredTodos.value"
+        :todo="todo"
+        :key="todo.id"
+        :isPc="isPc"
+        @del="deleteTodo"
+        @opt="optCompleted"
+      />
+      <Tabs
+        :filter="filter"
+        :todos="todos"
+        @toggle="toggleFilter"
+        @clearAll="clearAllCompleted"
+      />
+    </div>
+    <Author />
   </div>
 </template>
 
@@ -28,6 +31,7 @@
 import { defineComponent, ref, computed, onMounted } from 'vue'
 import Item from './item.vue'
 import Tabs from './tab.vue'
+import Author from './author'
 import { TodoItem } from './todoInterface'
 import { isPCHandle } from '@/utils/utils'
 
@@ -35,7 +39,8 @@ export default defineComponent({
   name: 'TodoPage',
   components: {
     Item,
-    Tabs
+    Tabs,
+    Author
   },
   setup() {
     let id = 0
