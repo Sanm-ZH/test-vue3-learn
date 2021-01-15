@@ -4,7 +4,7 @@
       <input
         type="text"
         class="add-input"
-        autofocus="autofocus"
+        ref="inputRef"
         placeholder="接下来要做什么？"
         @keyup.enter="addTodo"
       />
@@ -45,8 +45,10 @@ export default defineComponent({
   setup() {
     let id = 0
     const isPc = ref(true)
+    const inputRef = ref<HTMLElement | null>(null)
     onMounted(() => {
       isPc.value = isPCHandle()
+      inputRef.value && inputRef.value.focus()
     })
 
     const todos = ref([] as Array<TodoItem>)
@@ -98,7 +100,8 @@ export default defineComponent({
       filter,
       toggleFilter,
       filteredTodos,
-      isPc
+      isPc,
+      inputRef
     }
   }
 })
