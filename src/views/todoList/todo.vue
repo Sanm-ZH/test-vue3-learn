@@ -44,10 +44,6 @@ export default defineComponent({
   },
   setup() {
     const lStorage = localStorage['test_vue3_demo'] ? JSON.parse(localStorage['test_vue3_demo']) : {}
-    const _lStorage = {
-      todos: [] as Array<TodoItem>,
-      filter: 'all'
-    }
     let id = 0
     const isPc = ref(true)
     const inputRef = ref<HTMLElement | null>(null)
@@ -82,8 +78,8 @@ export default defineComponent({
     }
     watch(todos,
       (nv) => {
-        _lStorage['todos'] = nv as Array<TodoItem>
-        localStorage['test_vue3_demo'] = JSON.stringify(_lStorage)
+        lStorage['todos'] = nv
+        localStorage['test_vue3_demo'] = JSON.stringify(lStorage)
       }
     )
 
@@ -94,8 +90,8 @@ export default defineComponent({
     }
     watch(filter,
       (nv) => {
-        _lStorage['filter'] = nv
-        localStorage['test_vue3_demo'] = JSON.stringify(_lStorage)
+        lStorage['filter'] = nv
+        localStorage['test_vue3_demo'] = JSON.stringify(lStorage)
       }
     )
 
