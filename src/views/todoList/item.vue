@@ -4,6 +4,7 @@
       type="checkbox"
       class="toggle"
       :value="todo.completed"
+      :checked="todo.completed"
       @click="optCompletedClick"
     />
     <label>{{ todo.content }}</label>

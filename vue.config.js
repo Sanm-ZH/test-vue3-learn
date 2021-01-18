@@ -9,7 +9,7 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: true,
-  productionSourceMap: false,
+  productionSourceMap: process.argv.includes('build:debug'),
   devServer: {
     port: 5566,
     open: true,

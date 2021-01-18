@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, onMounted } from 'vue'
+import { defineComponent, ref, reactive, computed, watch, onMounted } from 'vue'
 import Item from './item.vue'
 import Tabs from './tab.vue'
 import Author from './author'
@@ -43,6 +43,11 @@ export default defineComponent({
     Author
   },
   setup() {
+    const lStorage = localStorage['test_vue3_demo'] ? JSON.parse(localStorage['test_vue3_demo']) : {}
+    const _lStorage = {
+      todos: [] as Array<TodoItem>,
+      filter: 'all'
+    }
     let id = 0
     const isPc = ref(true)
     const inputRef = ref<HTMLElement | null>(null)
@@ -50,45 +55,56 @@ export default defineComponent({
       isPc.value = isPCHandle()
       inputRef.value && inputRef.value.focus()
     })
-
-    const todos = ref([] as Array<TodoItem>)
+    const _todos = lStorage['todos'] || []
+    let todos = reactive(_todos as Array<TodoItem>)
     const addTodo = (e: any): void => {
       if (!e.target.value.trim()) {
         // 没有输入不添加
         return
       }
-      todos.value.unshift({
+      todos.unshift({
         id: id++,
         content: e.target.value.trim(),
         completed: false
       })
       e.target.value = ''
     }
-
     const deleteTodo = (id: number): void => {
-      todos.value
-        .splice(todos.value.findIndex((todo) => todo.id === id), 1)
+      todos.splice(todos.findIndex((todo) => todo.id === id), 1)
     }
     const clearAllCompleted = (): void => {
-      const activeList = todos.value.filter(todo => !todo.completed)
-      todos.value = activeList
+      const activeList = todos.filter(todo => !todo.completed)
+      todos = activeList
     }
     const optCompleted = (id: number): void => {
-      const activeTodoIndex = todos.value.findIndex(item => item.id === id)
-      todos.value[activeTodoIndex]['completed'] = !todos.value[activeTodoIndex]['completed']
+      const activeTodoIndex = todos.findIndex(item => item.id === id)
+      todos[activeTodoIndex]['completed'] = !todos[activeTodoIndex]['completed']
     }
+    watch(todos,
+      (nv) => {
+        _lStorage['todos'] = nv as Array<TodoItem>
+        localStorage['test_vue3_demo'] = JSON.stringify(_lStorage)
+      }
+    )
 
-    const filter = ref('all')
+    const _filter: string = lStorage['filter'] || 'all'
+    const filter = ref(_filter)
     const toggleFilter = (state: string): void => {
       filter.value = state
     }
+    watch(filter,
+      (nv) => {
+        _lStorage['filter'] = nv
+        localStorage['test_vue3_demo'] = JSON.stringify(_lStorage)
+      }
+    )
 
     const filteredTodos = computed(() => {
       if (filter.value === 'all') {
-        return todos
+        return ref(todos)
       }
       const flag = filter.value === 'completed'
-      return ref(todos.value.filter(todo => flag === todo.completed))
+      return ref(todos.filter(todo => flag === todo.completed))
     })
 
     return {
