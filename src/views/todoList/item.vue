@@ -3,7 +3,7 @@
     <input
       type="checkbox"
       class="toggle"
-      :value="todo.completed"
+      :value="+todo.completed"
       :checked="todo.completed"
       @click="optCompletedClick"
     />
@@ -54,9 +54,8 @@ export default defineComponent({
   font-size: 24px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   &:hover {
-    .destroy:after {
-      content: "x";
-      font-size: 20px;
+    .destroy::before {
+      opacity: 1;
     }
   }
 
@@ -120,11 +119,16 @@ export default defineComponent({
   border-width: 0;
   cursor: pointer;
   outline: none;
-}
-.notPc {
-  .destroy:after {
+  &::before {
     content: "x";
     font-size: 20px;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+}
+.notPc {
+  .destroy::before {
+    opacity: 1;
   }
 }
 </style>

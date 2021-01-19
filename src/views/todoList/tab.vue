@@ -70,6 +70,8 @@ export default defineComponent({
   background-color: #ffffff;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
+  position: sticky;
+  bottom: 0;
 }
 .left,
 .tabs {
@@ -111,16 +113,19 @@ export default defineComponent({
   width: 200px;
   display: flex;
   justify-content: space-around;
+  & > span {
+    font-weight: bold;
+  }
   * {
     display: inline-block;
     padding: 0px 10px;
     cursor: pointer;
-    border: 1px solid rgba(175, 47, 47, 0);
     &.actived {
-      background: #42b983;
+      background-color: #42b983;
       border-radius: 3px;
       color: #fff;
       font-weight: bold;
+      transition: background-color 0.5s;
     }
   }
 }
@@ -128,7 +133,8 @@ export default defineComponent({
   .helper {
     flex-direction: row;
     flex-wrap: wrap;
-    position: relative;
+    position: sticky;
+    bottom: 0;
   }
   .left {
     width: 6.25rem;
@@ -146,7 +152,8 @@ export default defineComponent({
   .helper {
     flex-direction: row;
     flex-wrap: wrap;
-    position: relative;
+    position: sticky;
+    bottom: 0;
   }
   .left {
     padding: 0;

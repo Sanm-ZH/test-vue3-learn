@@ -134,7 +134,6 @@ export default defineComponent({
   }
 }
 .add-input {
-  position: relative;
   margin: 0px;
   width: 100%;
   font-size: 24px;
@@ -154,6 +153,8 @@ export default defineComponent({
   z-index: 1000;
   display: flex;
   text-align: center;
+  position: sticky;
+  top: 0;
   @media (max-width: 18.75rem) {
     font-size: 1rem;
   }
